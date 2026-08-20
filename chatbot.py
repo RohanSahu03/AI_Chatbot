@@ -3,6 +3,8 @@ import ollama
 print("Welcome to AI Chatbot!")
 print("Type 'exit' to quit.")
 
+messages = []
+
 while True:
     user_input = input("You: ")
 
@@ -10,14 +12,21 @@ while True:
         print("Goodbye!")
         break
 
+    messages.append({
+        "role": "user",
+        "content": user_input
+    })
+
     response = ollama.chat(
         model="gemma3:4b",
-        messages=[
-            {
-                "role": "user",
-                "content": user_input
-            }
-        ]
+        messages=messages
     )
 
-    print("AI:", response["message"]["content"])
+    ai_response = response["message"]["content"]
+
+    print("AI:", ai_response)
+
+    messages.append({
+        "role": "assistant",
+        "content": ai_response
+    })
