@@ -35,12 +35,22 @@ while True:
 
     response = ollama.chat(
         model="gemma3:4b",
-        messages=messages
+        messages=messages,
+        stream=True
     )
 
-    ai_response = response["message"]["content"]
+    ai_response = ""
 
-    print("AI:", ai_response)
+    print("AI: ", end="")
+
+    for chunk in response:
+        text = chunk["message"]["content"]
+
+        print(text, end="", flush=True)
+
+        ai_response += text
+
+    print()
 
     messages.append({
         "role": "assistant",
