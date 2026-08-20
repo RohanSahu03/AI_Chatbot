@@ -3,7 +3,23 @@ import ollama
 print("Welcome to AI Chatbot!")
 print("Type 'exit' to quit.")
 
-messages = []
+messages = [
+    {
+        "role": "system",
+        "content": """
+        You are a helpful AI assistant.
+
+        Explain concepts clearly and simply.
+        Assume the user may be a beginner.
+
+        When explaining technical topics, provide
+        examples when useful.
+
+        If you are unsure about something, say so
+        rather than making up information.
+        """
+    }
+]
 
 while True:
     user_input = input("You: ")
